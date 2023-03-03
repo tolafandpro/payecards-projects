@@ -1,24 +1,37 @@
-import logo from './logo.svg';
+import { useState } from "react";
+import styled, { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from './utils/Theme';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import './App.css';
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import Home from "./pages/Home";
+import List from "./pages/List";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 function App() {
+  const [darkMode, setDarkMode] = useState(false);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkMode ? lightTheme : darkTheme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <Container>
+          <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
+            <Router>
+              <Routes>
+                <Route path="/" element={<Home/>} />
+                <Route path="/lists" element={<List/>} />
+              </Routes>
+            </Router>
+          <Footer />
+        </Container>
+      </LocalizationProvider>
+    </ThemeProvider>
   );
 }
 
