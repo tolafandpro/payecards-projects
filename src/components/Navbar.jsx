@@ -9,6 +9,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { DarkModeSwitch } from "react-toggle-dark-mode";
 import { FormControl, InputLabel, NativeSelect } from "@mui/material";
+import Logo from "./Logo";
 
 const NavWrapper = styled.div`
   position: sticky;
@@ -22,7 +23,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
     <>
       <NavWrapper>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar sx={{ background: "#e3014d" }} position="static">
+          <AppBar sx={{ background: "#000200" }} position="static">
             <Toolbar>
               <IconButton
                 size="large"
@@ -34,7 +35,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                Space X
+                <Logo width={210} height={26} />
               </Typography>
               <FormControl>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">
@@ -59,7 +60,7 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                   onChange={() => setDarkMode(!darkMode)}
                   size={35}
                   sunColor="yellow"
-                  moonColor="black"
+                  moonColor="gray"
                 />
               </Button>
               <Button color="inherit">Login</Button>
