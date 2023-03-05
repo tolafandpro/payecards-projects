@@ -136,7 +136,6 @@ const SliderModelWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background: url("https://images2.imgbox.com/5b/02/QcxHUb5V_o.png");
 `;
 
 const SlImg = styled.img`
