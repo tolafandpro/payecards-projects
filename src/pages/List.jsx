@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 // import SearchForm from "../components/SearchForm";
 import SearchPreview from "../components/SearchPreview";
@@ -10,6 +10,10 @@ import FormControl from "@mui/material/FormControl";
 import Button from "@mui/material/Button";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import SearchIcon from "@mui/icons-material/Search";
+import { Link, useLocation } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
+import axios from "axios";
+import { SearchContext } from "./../context/SearchContext";
 
 const Container = styled.div`
   display: flex;
@@ -49,6 +53,7 @@ const ListSearchItem = styled.div`
   gap: 5px;
   padding: 5px;
   background-color: white;
+  border-radius: 5px;
 
   label {
     font-size: 14px;
@@ -67,82 +72,106 @@ const ListSearchItem = styled.div`
 `;
 
 const List = () => {
-  const [dates, setDates] = useState(null);
+  const location = useLocation();
+
+  const [name, setName] = useState(location.state.name);
+  const [startDates, setStartDates] = useState(location.state.startDates);
+  const [endDates, setEndDates] = useState(location.state.endDates);
+  const [datas, setDatas] = useState([]);
+
+  let { getLauch, getLauchData, getSingleLaunch } = useContext(SearchContext);
+
+  // const { data, loading, error } = useFetch(
+  //   `https://api.spacexdata.com/v4/launches`
+  // );
+
+  // console.log(location);
+
+  // useEffect(() => {
+  //   const fetchLauchDetails = async () => {
+  //     try {
+  //       const res = await axios.get(
+  //         "https://api.spacexdata.com/v4/launches?limit=10"
+  //       );
+  //       setDatas(res.data);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+
+  //     fetchLauchDetails();
+  //     console.log(fetchLauchDetails());
+  //   };
+  // }, []);
+
   return (
     <>
-      <Container>
-        <ListWrapper>
-          {/* <SearchForm /> */}
-          <ListSearch>
-            <ListSearchItem>
-              <Stack spacing={2}>
-                <FormControl sx={{ width: "25ch" }} variant="standard">
-                  <TextField
-                    id="1"
-                    select
-                    label="Select a rocket"
-                    defaultValue=""
-                    //   helperText="Please select your currency"
+      {!getLauch ? (
+        "Loading please wait "
+      ) : (
+        <Container>
+          <ListWrapper>
+            <ListSearch>
+              <ListSearchItem>
+                <Stack spacing={5} sx={{ p: 1 }}>
+                  {/* <FormControl sx={{ width: "31ch" }} variant="standard">
+                    <TextField
+                      id="1"
+                      select
+                      label="Select a rocket"
+                      defaultValue={name}
+                      //   helperText="Please select your currency"
+                      variant="standard"
+                    >
+                      <MenuItem value="">select</MenuItem>
+                      <MenuItem value="English">English</MenuItem>
+                      <MenuItem value="French">French</MenuItem>
+                    </TextField>
+                  </FormControl> */}
+
+                  <DatePicker
+                    label="Start Date"
+                    value={startDates}
                     variant="standard"
-                  >
-                    <MenuItem value="">select</MenuItem>
-                    <MenuItem value="English">English</MenuItem>
-                    <MenuItem value="French">French</MenuItem>
-                  </TextField>
-                </FormControl>
-                <FormControl sx={{ m: 1, width: "25ch" }} variant="standard">
-                  <TextField
-                    id="2"
-                    select
-                    label="Select"
-                    defaultValue=""
+                    onChange={(newValue) => {
+                      setStartDates(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                  <DatePicker
+                    label="Check Out"
+                    value={endDates}
                     variant="standard"
+                    onChange={(newValue) => {
+                      setEndDates(newValue);
+                    }}
+                    renderInput={(params) => <TextField {...params} />}
+                  />
+                  <Button
+                    variant="contained"
+                    size="large"
+                    endIcon={<SearchIcon />}
                   >
-                    <MenuItem value="">select</MenuItem>
-                    <MenuItem value="English">English</MenuItem>
-                    <MenuItem value="French">French</MenuItem>
-                  </TextField>
-                </FormControl>
-                <DatePicker
-                  label="Check Out"
-                  value={dates}
-                  variant="standard"
-                  onChange={(newValue) => {
-                    setDates(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                <DatePicker
-                  label="Check Out"
-                  value={dates}
-                  variant="standard"
-                  onChange={(newValue) => {
-                    setDates(newValue);
-                  }}
-                  renderInput={(params) => <TextField {...params} />}
-                />
-                <Button
-                  variant="contained"
-                  size="large"
-                  endIcon={<SearchIcon />}
-                >
-                  Search
-                </Button>
-              </Stack>
-            </ListSearchItem>
-          </ListSearch>
-          <ListResult>
-            <SearchPreview />
-            <SearchPreview />
-            <SearchPreview />
-            <SearchPreview />
-            <SearchPreview />
-            <SearchPreview />
-            <SearchPreview />
-            <SearchPreview />
-          </ListResult>
-        </ListWrapper>
-      </Container>
+                    Search
+                  </Button>
+                </Stack>
+              </ListSearchItem>
+            </ListSearch>
+            <ListResult>
+              {!getLauch ? (
+                "Loading Please wait ..."
+              ) : (
+                <>
+                  {getLauch.map((data) => {
+                    return <SearchPreview key={data.id} item={data} />;
+                  })}
+                </>
+              )}
+              <SearchPreview />
+            </ListResult>
+          </ListWrapper>
+        </Container>
+      )}
+
       <Footer />
     </>
   );

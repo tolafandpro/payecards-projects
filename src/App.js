@@ -18,14 +18,14 @@ import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 function App() {
   const [darkMode, setDarkMode] = useState(false);
   return (
-    <ThemeProvider theme={darkMode ? lightTheme : darkTheme}>
+    <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
           <Navbar darkMode={darkMode} setDarkMode={setDarkMode}/>
             <Router>
               <Routes>
                 <Route path="/" element={<Home/>} />
                 <Route path="/lists" element={<List/>} />
-                <Route path="/details" element={<Details/>} />
+                <Route path="/details/:id" element={<Details/>} />
               </Routes>
             </Router>
       </LocalizationProvider>

@@ -73,41 +73,7 @@ const HeaderBtn = styled.button`
   }
 `;
 
-// const OptionText = styled.div`
 function Header({ type }) {
-  // This section is the Date range picker on the header
-  // const [openDate, setOpenDate] = useState(false);
-  const [dates, setDates] = useState(null);
-  console.log(dates);
-  // const [destination, setDestination] = useState("");
-
-  // for Option module in the search bar
-  const [openOption, setOpenOption] = useState(false); //Controls the click to open
-  const [options, setOptions] = useState({
-    adult: 1,
-    children: 0,
-    room: 1,
-  });
-
-  //This section logic sends the data and navigate to hotels page
-  const navigate = useNavigate();
-
-  /**The dispactch function from SearchContext from the Context folder
-   *
-   * */
-  //   const { user } = useContext(SearchContext);
-
-  const handleOption = (name, opretion) => {
-    setOptions((prev) => {
-      return {
-        ...prev,
-        [name]: opretion === "increase" ? options[name] + 1 : options[name] - 1,
-      };
-    });
-  };
-
-  //   const { dispatch } = useContext(SearchContext);
-
   const handleSearch = () => {
     // dispatch({ type: "NEW_SEARCH", payload: { destination, dates, options } });
     // navigate("/hotels", { state: { destination, dates, options } });
@@ -136,7 +102,7 @@ function Header({ type }) {
         </HeaderList>
         <>
           <HeaderTitle>
-            <h1>A Lifetime of discount It's Genius</h1>
+            <h1>A Lifetime of discovery It's Genius</h1>
             <HeaderDesc>
               <span>FIRST ORBITAL CLASS ROCKET CAPABLE OF REFLIGHT</span>
             </HeaderDesc>

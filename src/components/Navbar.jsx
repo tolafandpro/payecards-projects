@@ -12,7 +12,7 @@ import { FormControl, InputLabel, NativeSelect } from "@mui/material";
 import Logo from "./Logo";
 
 const NavWrapper = styled.div`
-  position: sticky;
+  position: relative;
   top: 0;
   width: 100%;
   box-shadow: 0px 4px 12px 3px rgba(242, 242, 242, 0.75);
@@ -35,7 +35,13 @@ const Navbar = ({ darkMode, setDarkMode }) => {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                <Logo width={210} height={26} />
+                <img
+                  src={
+                    "https://upload.wikimedia.org/wikipedia/commons/9/96/SpaceX_Logo_Black.png"
+                  }
+                  width={210}
+                  height={100}
+                />
               </Typography>
               <FormControl>
                 <InputLabel variant="standard" htmlFor="uncontrolled-native">

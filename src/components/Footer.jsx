@@ -6,7 +6,6 @@ import Button from "@mui/material/Button";
 
 const FooterContainer = styled.div`
   width: 100%;
-  /* max-width: 1024px; */
   font-size: 12px;
   color: ${({ theme }) => theme.text};
   background-color: ${({ theme }) => theme.bg};

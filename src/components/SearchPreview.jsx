@@ -1,6 +1,9 @@
-import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { Link, useParams } from "react-router-dom";
 import styled from "styled-components";
 import spaceman from "../assets/images/spaceman.png";
+import { SearchContext } from "../context/SearchContext";
+// import useFetch from "../hooks/useFetch";
 
 const SearchPreviewContainer = styled.div`
   border: 2px solid lightgray;
@@ -90,7 +93,7 @@ const SearchItemCheckBtn = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 60%;
+  width: 40%;
   margin-left: 4.6rem;
 `;
 const SearchDetailsText = styled.div`
@@ -105,39 +108,45 @@ const SearchDetailsText = styled.div`
  * from the search input at the home page or at the left yellow searchbar at the left hand side
  */
 const SearchPreview = ({ item }) => {
+  let { id } = useParams();
+
   return (
     <>
-      <SearchPreviewContainer>
-        <PreviewImage src={spaceman} alt="Hotel1" />
+      {!item ? (
+        "loading Please wait..."
+      ) : (
+        <SearchPreviewContainer>
+          <PreviewImage src={item?.links.patch.small} alt="Hotel1" />
 
-        <PreviewDesc>
-          <SearchTitle>Viasat-3 & Arcturus</SearchTitle>
-          <SearchDistance>500m from center</SearchDistance>
-          <SearchTaxi>Free airport taxi</SearchTaxi>
-          <SearchSubtitle>Stuido Apartment with Air condition</SearchSubtitle>
-          <SearchFeatures>
-            Engine failure at 33 seconds and loss of vehicle
-          </SearchFeatures>
-          <SearchCancel>Free cancellation </SearchCancel>
-          <SearchCancelSuptitle>
-            You can cancel later, so lock in this great price today
-          </SearchCancelSuptitle>
-        </PreviewDesc>
-        <SearchDetails>
-          <SearchRating>
-            <span>Excellent</span>
-            <button>Landing Type</button>
-          </SearchRating>
-
-          <SearchDetailsText>
-            <SearchDetailsPrice>$50000</SearchDetailsPrice>
-            <SrTaxOp>Includes Taxes and fees</SrTaxOp>
-            <Link to={"#"}>
-              <SearchItemCheckBtn>Learn More</SearchItemCheckBtn>
+          <PreviewDesc>
+            <Link to={`http://localhost:3000/details/${item?.id}`}>
+              <SearchTitle>{item?.name}</SearchTitle>
             </Link>
-          </SearchDetailsText>
-        </SearchDetails>
-      </SearchPreviewContainer>
+            <SearchDistance>Success:{item?.success}</SearchDistance>
+            <SearchTaxi>Upcoming: {String(item?.upcoming)}</SearchTaxi>
+            <SearchSubtitle>Rocket: {String(item?.rocket)}</SearchSubtitle>
+            <SearchFeatures>Details: {String(item?.details)}</SearchFeatures>
+            <SearchCancel>Net: {String(item?.net)}</SearchCancel>
+            <SearchCancelSuptitle>
+              {item?.static_fire_date_utc}
+            </SearchCancelSuptitle>
+          </PreviewDesc>
+          <SearchDetails>
+            <SearchRating>
+              <span>{item?.cores.flight}</span>
+              <button>Date Precision: {item?.date_precision}</button>
+            </SearchRating>
+
+            <SearchDetailsText>
+              <SearchDetailsPrice>$50000</SearchDetailsPrice>
+              <SrTaxOp>Includes Taxes and fees</SrTaxOp>
+              <Link to={`http://localhost:3000/details/${item?.id}`}>
+                <SearchItemCheckBtn>Learn More</SearchItemCheckBtn>
+              </Link>
+            </SearchDetailsText>
+          </SearchDetails>
+        </SearchPreviewContainer>
+      )}
     </>
   );
 };
