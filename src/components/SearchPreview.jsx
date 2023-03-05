@@ -119,7 +119,7 @@ const SearchPreview = ({ item }) => {
           <PreviewImage src={item?.links.patch.small} alt="Hotel1" />
 
           <PreviewDesc>
-            <Link to={`http://localhost:3000/details/${item?.id}`}>
+            <Link to={`https://payecards-projects.vercel.app/details/${item?.id}`}>
               <SearchTitle>{item?.name}</SearchTitle>
             </Link>
             <SearchDistance>Success:{item?.success}</SearchDistance>
@@ -140,7 +140,7 @@ const SearchPreview = ({ item }) => {
             <SearchDetailsText>
               <SearchDetailsPrice>$50000</SearchDetailsPrice>
               <SrTaxOp>Includes Taxes and fees</SrTaxOp>
-              <Link to={`http://localhost:3000/details/${item?.id}`}>
+              <Link to={`https://payecards-projects.vercel.app/details/${item?.id}`}>
                 <SearchItemCheckBtn>Learn More</SearchItemCheckBtn>
               </Link>
             </SearchDetailsText>
