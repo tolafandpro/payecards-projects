@@ -23,6 +23,7 @@ const Container = styled.div`
   bottom: 200px;
   width: 80%;
   max-width: 80%;
+  z-index: 5;
 `;
 
 const SearchForm = () => {
